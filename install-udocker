@@ -3,14 +3,14 @@
 unset UDOCKER_TARBALL
 
 if [[ ! $UDOCKER_BASE ]]; then
-  export UDOCKER_BASE=$HOME/udocker-devel
+  export UDOCKER_BASE=$PWD
 fi
 
 export UDOCKER_DIR=$UDOCKER_BASE/udocker
 udocker_binary=$UDOCKER_BASE/bin/udocker
 
-if [ -d $UDOCKER_BASE ]; then
-  rm -rf $UDOCKER_BASE
+if [! -d $UDOCKER_BASE ]; then
+  mkdir $UDOCKER_BASE
 fi
 
 mkdir -p $UDOCKER_BASE/bin
