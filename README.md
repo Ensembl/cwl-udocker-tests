@@ -29,29 +29,14 @@ if [ ! -e $PYENV_ROOT/versions/toil ]; then
 fi
 ```
 
-## Installing udocker in your userspace/home directory
+## Installing udocker
 
-Because of the way udocker handles images at the moment it seems safer to use a local install of udocker versus a shared instance. We will install udocker in `$HOME/udocker-install-dev`.
+See `install-udocker` about how we do this step by step. To change the target directory export `UDOCKER_BASE` to another path. Otherwise we will use this directory as the base install.
 
 ```
-unset UDOCKER_TARBALL
-export UDOCKER_BASE=$HOME/udocker-devel
-export UDOCKER_DIR=$UDOCKER_BASE/udocker
-udocker_binary=$UDOCKER_BASE/bin/udocker
-
-if [ -d $UDOCKER_BASE ]; then
-  rm -rf $UDOCKER_BASE
-fi
-
-mkdir -p $HOME/udocker-install-dev
-mkdir -p $UDOCKER_BASE/bin
-curl 'https://raw.githubusercontent.com/indigo-dc/udocker/devel/udocker.py' > $udocker_binary
-chmod ugo+x $udocker_binary
-$udocker_binary install
-
-echo "export UDOCKER_DIR=$UDOCKER_DIR" > $UDOCKER_BASE/env.sh
-echo "export PATH=$UDOCKER_BASE/bin:$UDOCKER_DIR/bin:$PATH" >> $UDOCKER_BASE/env.sh
-echo "export PYENV_VERSION=toil" >> $UDOCKER_BASE/env.sh
+git clone https://github.com/Ensembl/cwl-udocker-tests.git
+cd cwl-udocker-tests
+./install-udocker
 ```
 
 # Testing this has all worked
